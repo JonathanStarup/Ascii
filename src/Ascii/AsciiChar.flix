@@ -6,6 +6,16 @@ mod Ascii {
     ///
     pub enum AsciiChar(Int8)
 
+    instance Eq[AsciiChar] {
+        pub def eq(ac1: AsciiChar, ac2: AsciiChar): Bool =
+            AsciiChar.eq(ac1, ac2)
+    }
+
+    instance ToString[AsciiChar] {
+        pub def toString(ac: AsciiChar): String =
+            AsciiChar.toString(ac)
+    }
+
 }
 
 mod Ascii.AsciiChar {
@@ -50,6 +60,13 @@ mod Ascii.AsciiChar {
         match fromCharRes(c) {
             case Result.Ok(ac) => ac
             case Result.Err(msg) => Abort.abort(msg)
+        }
+    }
+
+    pub def fromCharUnsafe(c: Char): AsciiChar = {
+        match fromCharRes(c) {
+            case Result.Ok(ac) => ac
+            case Result.Err(msg) => bug!(msg)
         }
     }
 
@@ -212,6 +229,12 @@ mod Ascii.AsciiChar {
         } else {
             ac
         }
+    }
+
+    pub def eq(ac1: AsciiChar, ac2: AsciiChar): Bool = {
+        let AsciiChar(i1) = ac1;
+        let AsciiChar(i2) = ac2;
+        i1 == i2
     }
 
     pub def description(ac: AsciiChar): String = {
