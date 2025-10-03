@@ -1,7 +1,6 @@
 # Ascii
 
-Enter some useful information.
-
+A Flix library for 8-bit ascii characters. 
 
 # License
 
