@@ -33,7 +33,7 @@ mod Ascii.AsciiChar {
     pub def fromInt8(i: Int8): AsciiChar \ Abort = {
         match fromInt8Res(i) {
             case Result.Ok(ac) => ac
-            case Result.Err(msg) => Abort.abort(msg)
+            case Result.Err(msg) => Abort.abort(RichString.fromString(msg))
         }
     }
 
@@ -59,7 +59,7 @@ mod Ascii.AsciiChar {
     pub def fromChar(c: Char): AsciiChar \ Abort = {
         match fromCharRes(c) {
             case Result.Ok(ac) => ac
-            case Result.Err(msg) => Abort.abort(msg)
+            case Result.Err(msg) => Abort.abort(RichString.fromString(msg))
         }
     }
 
@@ -75,7 +75,7 @@ mod Ascii.AsciiChar {
         i
     }
 
-    pub def toChar(ac: AsciiChar): Char = unsafely IO run {
+    pub def toChar(ac: AsciiChar): Char = unsafe IO {
         Character.toChars(ac |> toInt8 |> Int8.toInt32) |> Array.get(0)
     }
 
